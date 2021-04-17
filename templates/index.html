@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 class="d-flex justify-content-center">Predicción Precio de Carros</h2>
+        <form action="{{ url_for('predict')}}" method="post">
+            
+
+            <div class="form-group">
+                <label for="year">Año</label>
+                <input type="number" class="form-control" id="year" name="year" required>
+            </div>
+            <div class="form-group">
+                <label for="present_price">¿Cuál es el precio de exposición?</label>
+                <input type="text" class="form-control" id="present_price" required>
+            </div>
+            <div class="form-group">
+                <label for="kms_driven">¿Cuántos kilómetros ha recorrido?</label>
+                <input type="text" class="form-control" id="kms_driven" required>
+            </div>
+            <div class="form-group">
+                <label for="owner">¿Cuántos propietarios ha tenido el coche (0 o 1 o 3)?</label>
+                <input type="text" class="form-control" id="owner" required>
+            </div>
+            <div class="form-group">
+                <label for="fuel_type_petrol">¿Qué tipo de combustible utiliza?</label>
+                <select class="form-control" name="fuel_type_petrol" id="fuel_type_petrol" required>
+                    <option value="Petrol">Gasolina</option>
+                    <option value="Diesel">Diesel</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="seller_type_individual">¿Es distribuidora o individual?</label>
+                <select class="form-control" name="seller_type_individual" id="seller_type_individual" required>
+                    <option value="Dealer">Distribuidora</option>
+                    <option value="Individual">Individual</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="transmission_Manual">Tipo de transmisión</label>
+                <select class="form-control" name="transmission_Manual" id="transmission_Manual" required>
+                    <option value="Manual">Manual</option>
+                    <option value="Automatic">Automático</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" id="submit" name="submit" class="btn btn-primary mt-2">Calcular el precio de venta</button>
+            </div>
+
+        </form>
+
+
+
+        <h3>{{ prediction_text }}<h3>
+    </div>
+
+    <script src="/static/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
