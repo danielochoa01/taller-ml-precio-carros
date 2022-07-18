@@ -9,9 +9,11 @@ app = Flask(__name__)
 
 model = pickle.load(open('random_forest_regressor_model.pkl', 'rb'))
 
+
 @app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -40,22 +42,24 @@ def predict():
         if seller_type_individual == 'Individual':
             seller_type_individual = 1
         else:
-            seller_type_individual=0
+            seller_type_individual = 0
         
-        if transmission_manual == 'Mannual':
+        if transmission_manual == 'Manual':
             transmission_manual = 1
         else:
             transmission_manual = 0
-
+        print(kms_driven)
+        print([[present_price, kms_driven2, owner, year, fuel_type_diesel, fuel_type_petrol,seller_type_individual, transmission_manual]])
         prediction = model.predict([[present_price, kms_driven2, owner, year, fuel_type_diesel, fuel_type_petrol,seller_type_individual, transmission_manual]])
-        output = round(prediction[0],2)
+        output = round(prediction[0], 2)
 
-        if output<0:
-            return render_template('index.html',prediction_texts = "Lo sentimos, no puedes vender este carro")
+        if output < 0:
+            return render_template('index.html', prediction_texts='Lo sentimos, no puedes vender este carro')
         else:
-            return render_template('index.html',prediction_text = "Puedes vender el carro a {}".format(output))
+            return render_template('index.html', prediction_text=f'Puedes vender el carro a {output}')
     else:
         return render_template('index.html')
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     app.run(debug=True)
